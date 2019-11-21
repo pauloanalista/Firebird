@@ -23,4 +23,8 @@ SELECT A.RDB$RELATION_NAME AS TABELA FROM RDB$RELATION_FIELDS A
 INNER JOIN RDB$FIELDS B ON (A.RDB$FIELD_SOURCE = B.RDB$FIELD_NAME)
 WHERE A.RDB$FIELD_NAME =:PCAMPO
 ```
+## Retorna conteudo do campo separado por vírgulas
+```sql
+select list(g.guia) from tra_guia_acesso g
+```
 
