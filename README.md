@@ -57,3 +57,48 @@ ORDER BY RDB$RELATION_NAME;
 
 ```
 
+## Analisar consumo do firebird
+```sql
+SELECT a.mon$attachment_id as "Attachment ID",
+        a.mon$server_pid as "Server PID",
+        a.mon$state as "State",
+        a.mon$attachment_name as "Attachment Name",
+        a.mon$user as "User",
+        a.mon$role as "Role",
+        a.mon$remote_protocol as "Remote Protocol",
+        a.mon$remote_address as "Remote Address",
+        a.mon$remote_pid as "Remote PID",
+        cs.rdb$character_set_name as "Character Set",
+        a.mon$timestamp as "Established At",
+        a.mon$garbage_collection as "Garbage Collection",
+        a.mon$remote_process as "Remote Process",
+        a.mon$stat_id as "Statistics ID",
+        r.mon$record_seq_reads as "Non-indexed Reads",
+        r.mon$record_idx_reads as "Indexed Reads",
+        r.mon$record_inserts as "Records Inserted",
+        r.mon$record_updates as "Records Updated",
+        r.mon$record_deletes as "Records Deleted",
+        r.mon$record_backouts as "Records Backed Out",
+        r.mon$record_purges as "Records Purged",
+        r.mon$record_expunges as "Records Expunged",
+        io.mon$page_reads as "Page Reads",
+        io.mon$page_writes as "Page Writes",
+        io.mon$page_fetches as "Page Fetches",
+        io.mon$page_marks as "Page Marks",
+        cast(round((MEM.MON$MEMORY_USED / 1024.00 / 1024.00),2) as
+ numeric(18,2)) as MEMORY_USED,
+        cast(round((MEM.MON$MEMORY_ALLOCATED / 1024.00 / 1024.00),2) as
+ numeric(18,2)) as MEMORY_ALLOCATED,
+        cast(round((MEM.MON$MAX_MEMORY_USED / 1024.00 / 1024.00),2) as
+ numeric(18,2)) as MAX_MEMORY_USED,
+        cast(round((MEM.MON$MAX_MEMORY_ALLOCATED / 1024.00 / 1024.00),2) as
+ numeric(18,2)) as MAX_MEMORY_ALLOCATED
+ from mon$attachments a
+ join rdb$character_sets cs on (a.mon$character_set_id =
+ cs.rdb$character_set_id)
+ left join mon$record_stats r on (a.mon$stat_id = r.mon$stat_id)
+ left join mon$io_stats io on (a.mon$stat_id = io.mon$stat_id)
+ left join MON$MEMORY_USAGE MEM on (a.mon$stat_id = mem.mon$stat_id)
+--  where a.mon$remote_process like '%Trafego_Urbano.exe%'
+ order by a.mon$timestamp, a.mon$remote_process
+```
