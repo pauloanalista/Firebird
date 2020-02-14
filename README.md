@@ -102,3 +102,38 @@ SELECT a.mon$attachment_id as "Attachment ID",
 --  where a.mon$remote_process like '%Trafego_Urbano.exe%'
  order by a.mon$timestamp, a.mon$remote_process
 ```
+
+## Manutenção Firebird
+### Verificação de corrupção da base
+```sh
+gfix -v -f caminho_da_base -user sysdba -pass masterkey
+```
+### Correção da corrupção da base
+```sh
+gfix -m -i caminho_da_base -user sysdba -pass masterkey
+```
+### Realização de backup da base
+```sh
+gbak -g -b -z -l -v caminho_da_base caminho_do_arquivo_fbk -user sysdba -pass masterkey
+```
+### Restauração de backup da base
+```sh
+gbak -g -c -z -v caminho_do_arquivo_fbk caminho_da_base -user sysdba -pass masterkey
+```
+Comandos adicionais
+### Cancelar todas as transações abertas
+```sh
+gfix -rollback all nome_base -user sysdba -pass masterkey
+```
+### Colocar a base em shutdown
+```sh
+gfix -shut -force 0 nome_base -user sysdba -pass masterkey
+```
+### Colocar a base em online
+```sh
+gfix -online nome_base -user sysdba -pass masterkey
+```
+### Executar o garbage collection na base
+```sh
+gfix -s nome_base -user sysdba -pass masterkey
+```
