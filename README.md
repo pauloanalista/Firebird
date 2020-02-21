@@ -1,5 +1,10 @@
 # Firebird - Rotinas de Apoio
 Conjunto de scrips úteis em nosso dia a dia.
+### Exibir Consultas que estão rodando no momento
+```sql
+SELECT  MS.MON$SQL_TEXT AS CONSULTA, ATT.MON$REMOTE_ADDRESS AS IP, ATT.MON$REMOTE_PROTOCOL AS PROTOCOLO, ATT.MON$REMOTE_PROCESS AS PROCESSO FROM MON$STATEMENTS MS
+INNER JOIN MON$ATTACHMENTS ATT ON (ATT.MON$ATTACHMENT_ID = MS.MON$ATTACHMENT_ID)
+```
 
 ### Consultar Triggers
 ```sql
