@@ -142,3 +142,11 @@ gfix -online nome_base -user sysdba -pass masterkey
 ```sh
 gfix -s nome_base -user sysdba -pass masterkey
 ```
+
+# VEJA TAMBÉM
+## Cursos baratos!
+- [Meus cursos](https://olha.la/udemy)
+
+## Novidades, cupons de descontos e cursos gratuitos
+https://olha.la/ilovecode-receber-cupons-novidades
+
