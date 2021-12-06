@@ -70,6 +70,13 @@ ORDER BY RDB$RELATION_NAME;
 
 ```
 
+## Exibe triggers de uma tabela
+```sql
+SELECT * FROM rdb$triggers
+where upper(RDB$RELATION_NAME) LIKE '%TABELA%' AND RDB$TRIGGER_SOURCE IS NOT NULL
+
+```
+
 ## Analisar consumo do firebird
 ```sql
 SELECT a.mon$attachment_id as "Attachment ID",
